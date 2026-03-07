@@ -10,7 +10,12 @@ logging.basicConfig(
     datefmt='%Y-%m-%d %H:%M:%S'
 )
 
-DB_FILE = "cell_counts.db"
+DIRECTORY = "data"
+
+if not os.path.exists(DIRECTORY):
+    os.makedirs(DIRECTORY)
+
+DB_FILE = os.path.join("cell_counts.db")
 CSV_FILE = "cell-count.csv"
 
 
