@@ -1,8 +1,7 @@
 import Database from 'better-sqlite3';
 import path from 'path';
 
-// Connect to the SQLite DB file
-const dbPath = path.resolve(process.cwd(), 'data/database.db');
+const dbPath = path.resolve(process.cwd(), 'cell_counts.db');
 const db = new Database(dbPath, { readonly: true });
 
 export type SampleData = {
@@ -15,7 +14,6 @@ export type SampleData = {
 };
 
 export function getSamples(): SampleData[] {
-  // A simple join to get sample data alongside the subject's treatment
   const stmt = db.prepare(`
     SELECT 
       samples.sample_id, 
@@ -28,5 +26,6 @@ export function getSamples(): SampleData[] {
     JOIN subjects ON samples.subject_id = subjects.subject_id
   `);
   
-  return stmt.all() as SampleData[];
+  const data = stmt.all() as SampleData[];
+  return data;
 }
