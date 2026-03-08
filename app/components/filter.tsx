@@ -57,12 +57,17 @@ export function Filter({ column, table }: { column: Column<any, unknown>; table:
         <ReactSlider
           className="w-full h-2 flex items-center"
           thumbClassName="w-3 h-3 bg-[#e83e3e] rounded-full cursor-grab active:cursor-grabbing focus:outline-none focus:ring-2 focus:ring-red-300 shadow"
-          renderTrack={(props, state) => (
-            <div
-              {...props}
-              className={`h-2 rounded-full ${state.index === 1 ? 'bg-[#12141d]' : 'bg-gray-200'}`}
-            />
-          )}
+          renderTrack={(props, state) => {
+            const { key, ...restProps } = props;
+            
+            return (
+              <div
+                key={key} 
+                {...restProps} 
+                className={`h-2 rounded-full ${state.index === 1 ? 'bg-[#12141d]' : 'bg-gray-200'}`}
+              />
+            );
+          }}
           min={minBound}
           max={maxBound}
           value={[currentMin, currentMax]}
