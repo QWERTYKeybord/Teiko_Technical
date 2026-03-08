@@ -8,8 +8,13 @@ import {
   getCoreRowModel,
   getSortedRowModel,
   getPaginationRowModel,
+  getFilteredRowModel,
+  getFacetedRowModel,
+  getFacetedUniqueValues,
+  getFacetedMinMaxValues,
   useReactTable,
 } from "@tanstack/react-table";
+import { Filter } from "./filter"; 
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -21,6 +26,7 @@ export function DataTable<TData, TValue>({
   data,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [isFilterMenuOpen, setIsFilterMenuOpen] = useState(false);
 
   const table = useReactTable({
     data,
@@ -28,6 +34,10 @@ export function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
     getSortedRowModel: getSortedRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    getFacetedRowModel: getFacetedRowModel(),
+    getFacetedUniqueValues: getFacetedUniqueValues(),
+    getFacetedMinMaxValues: getFacetedMinMaxValues(),
     onSortingChange: setSorting,
     state: { sorting },
     initialState: {
@@ -37,6 +47,74 @@ export function DataTable<TData, TValue>({
 
   return (
     <div className="space-y-4 font-sans">
+
+      <div className="flex items-center gap-4">
+        <button 
+          onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)}
+          className="px-4 py-2 bg-white border border-gray-300 text-gray-700 rounded-md shadow-sm hover:bg-gray-50 flex items-center gap-2 transition-colors"
+        >
+          <span>Data Filters</span>
+          <span>{isFilterMenuOpen ? "▲" : "▼"}</span>
+        </button>
+
+        {table.getState().columnFilters.length > 0 && (
+          <button
+            onClick={() => table.resetColumnFilters()}
+            className="px-4 py-2 text-sm font-medium text-red-600 border border-red-200 bg-red-50 rounded-md hover:bg-red-100 transition-colors"
+          >
+            Clear All Filters
+          </button>
+        )}
+      </div>
+
+      {/* dropdown filter table */}
+      {isFilterMenuOpen && (
+        <div className="absolute z-10 mt-2 w-full max-w-4xl p-6 bg-white border border-gray-200 rounded-xl shadow-xl flex flex-wrap gap-8">
+          {table.getAllLeafColumns().map(column => {
+            const headerText = typeof column.columnDef.header === 'string' ? column.columnDef.header : column.id;
+            
+            return (
+              <div key={column.id} className="flex-1 min-w-[200px]">
+                {/* individual column head + clear button*/}
+                <div className="flex justify-between items-center border-b pb-1 mb-2">
+                  <h3 className="text-sm font-bold text-gray-900">{headerText}</h3>
+                  
+                  {column.getIsFiltered() && (
+                    <button
+                      onClick={() => column.setFilterValue(undefined)}
+                      className="text-xs text-red-500 hover:text-red-700 font-medium"
+                    >
+                      Clear
+                    </button>
+                  )}
+                </div>
+                
+                <Filter column={column} table={table} />
+              </div>
+            );
+          })}
+        </div>
+      )}
+
+      <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
+        <span className="text-sm font-semibold text-gray-700 mb-3 block">Toggle Columns:</span>
+        <div className="flex flex-wrap gap-4">
+          {table.getAllLeafColumns().map(column => {
+            return (
+              <label key={column.id} className="flex items-center gap-2 text-sm text-gray-600 cursor-pointer hover:text-gray-900 transition-colors">
+                <input
+                  type="checkbox"
+                  className="rounded border-gray-300 text-blue-600 focus:ring-blue-500 w-4 h-4 cursor-pointer"
+                  checked={column.getIsVisible()}
+                  onChange={column.getToggleVisibilityHandler()}
+                />
+                {/* display the column header name if string, otherwise fallback to ID */}
+                {typeof column.columnDef.header === 'string' ? column.columnDef.header : column.id}
+              </label>
+            )
+          })}
+        </div>
+      </div>
       <div className="border border-gray-200 rounded-lg shadow-sm overflow-hidden bg-white">
         <table className="w-full text-sm text-left">
           <thead className="bg-gray-100 text-gray-700 font-semibold border-b-2 border-gray-300">
