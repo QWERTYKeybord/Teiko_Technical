@@ -2,8 +2,6 @@
 
 ## How to Run the Code
 
-This project is fully automated via a Makefile to ensure a seamless setup and execution environment.
-
 Initialize the Environment:
 Installs all necessary Python dependencies (Pandas, SciPy, Seaborn) and Node.js packages (Next.js, React, TanStack Table).
 
