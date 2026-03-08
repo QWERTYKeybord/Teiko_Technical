@@ -122,8 +122,8 @@ export function DataTable<TData, TValue>({
           })}
         </div>
       </div>
-      <div className="border border-gray-200 rounded-lg shadow-sm overflow-hidden bg-white">
-        <table className="w-full text-sm text-left">
+      <div className="border border-gray-200 rounded-lg shadow-sm overflow-x-auto bg-white">
+        <table className="w-full text-sm text-left whitespace-nowrap">
           <thead className="bg-gray-100 text-gray-700 font-semibold border-b-2 border-gray-300">
             {table.getHeaderGroups().map((headerGroup) => (
               <tr key={headerGroup.id}>
