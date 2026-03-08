@@ -9,8 +9,11 @@ export type SampleData = {
   subject_id: string;
   treatment: string;
   time_from_treatment_start: number;
-  cd8_t_cell: number;
   b_cell: number;
+  cd8_t_cell: number;
+  cd4_t_cell: number;
+  nk_cell: number;
+  monocyte: number;
 };
 
 export function getSamples(): SampleData[] {
@@ -20,8 +23,11 @@ export function getSamples(): SampleData[] {
       samples.subject_id, 
       subjects.treatment, 
       samples.time_from_treatment_start, 
+      samples.b_cell,
       samples.cd8_t_cell, 
-      samples.b_cell
+      samples.cd4_t_cell,
+      samples.nk_cell,
+      samples.monocyte
     FROM samples
     JOIN subjects ON samples.subject_id = subjects.subject_id
   `);
