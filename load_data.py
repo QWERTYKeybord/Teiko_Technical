@@ -15,6 +15,8 @@ CSV_FILE = "cell-count.csv"
 
 
 def init_db():
+    logging.info("Part 1: Loading data into database")
+
     conn = sqlite3.connect(DB_FILE)
     cursor = conn.cursor()
 

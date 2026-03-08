@@ -3,17 +3,16 @@
 import { useState } from "react";
 import { DataTable } from "./datatable";
 import { summaryColumns, rawColumns } from "./columns";
-import { SampleData } from "../../lib/db";
-import { PopulationSummary } from "../page";
+import { SampleData, PopulationSummary, TTestResult } from "../../lib/db"; // <-- Updated imports!
 import { AnalysisView } from "./analysisview";
 
 interface DashboardProps {
   summaryData: PopulationSummary[];
   rawData: SampleData[];
+  ttestData: TTestResult[];
 }
 
-export function Dashboard({ summaryData, rawData }: DashboardProps) {
-  // 2. Add "analysis" to the state options
+export function Dashboard({ summaryData, rawData, ttestData }: DashboardProps) {
   const [view, setView] = useState<"summary" | "raw" | "analysis">("summary");
 
   const currentData = view === "summary" ? summaryData : rawData;
@@ -40,7 +39,7 @@ export function Dashboard({ summaryData, rawData }: DashboardProps) {
       </div>
 
       {view === "analysis" ? (
-        <AnalysisView rawData={rawData} />
+        <AnalysisView ttestData={ttestData} /> 
       ) : (
         <DataTable columns={currentColumns as any} data={currentData as any[]} />
       )}

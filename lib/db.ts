@@ -39,3 +39,32 @@ export function getSamples(): SampleData[] {
   `);
   return stmt.all() as SampleData[];
 }
+
+export type PopulationSummary = {
+  id: number,
+  sample_id: string;
+  total_count: number;
+  population: string;
+  count: number;
+  percentage: number;
+};
+
+export type TTestResult = {
+  population: string;
+  p_value: number;
+  is_significant: string;
+};
+
+export function getSummaryData(): PopulationSummary[] {
+  const stmt = db.prepare(`SELECT * FROM population_summary`);
+  return stmt.all() as PopulationSummary[];
+}
+
+export function getTTestResults(): TTestResult[] {
+  try {
+    const stmt = db.prepare(`SELECT * FROM ttest_results`);
+    return stmt.all() as TTestResult[];
+  } catch (e) {
+    return [];
+  }
+}

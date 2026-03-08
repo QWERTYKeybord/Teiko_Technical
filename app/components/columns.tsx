@@ -1,8 +1,7 @@
 "use client";
 
 import { ColumnDef, FilterFn } from "@tanstack/react-table";
-import { SampleData } from "../../lib/db";
-import { PopulationSummary } from "../page";
+import { SampleData, PopulationSummary } from "../../lib/db";
 
 export const idRangeFilter: FilterFn<any> = (row, columnId, value) => {
   const rowValue = row.getValue<string>(columnId) || "";
@@ -16,7 +15,7 @@ export const idRangeFilter: FilterFn<any> = (row, columnId, value) => {
 };
 
 export const summaryColumns: ColumnDef<PopulationSummary>[] = [
-  { accessorKey: "sample", header: "Sample ID", filterFn: idRangeFilter },
+  { accessorKey: "sample_id", header: "Sample ID", filterFn: idRangeFilter },
   { accessorKey: "total_count", header: "Total Count", filterFn: "inNumberRange" },
   { accessorKey: "population", header: "Population" },
   { accessorKey: "count", header: "Count", filterFn: "inNumberRange" },
@@ -24,7 +23,7 @@ export const summaryColumns: ColumnDef<PopulationSummary>[] = [
     accessorKey: "percentage", 
     header: "Percentage",
     filterFn: "inNumberRange",
-    cell: ({ row }) => `${row.getValue("percentage")}%` 
+    cell: ({ row }) => `${Number(row.getValue("percentage")).toFixed(2)}%` 
   },
 ];
 
