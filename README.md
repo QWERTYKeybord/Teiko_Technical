@@ -60,3 +60,5 @@ This application utilizes a decoupled Pre-Computation Architecture to maximize f
     - ```lib/db.tsx```: Centralized database utility. It establishes and exports a single better-sqlite3 connection instance, to ensure that database queries are handled efficiently and securely across the server components without establishing redundant connections.
 
     - Uses ```@tanstack/react-table``` for client-side pagination, filtering, and sorting without needing to hit the database for every user interaction.
+
+# [Link to Dashboard](https://teiko-technical-36d1.onrender.com/)
