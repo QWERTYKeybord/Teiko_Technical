@@ -7,7 +7,10 @@ const db = new Database(dbPath, { readonly: true });
 export type SampleData = {
   sample_id: string;
   subject_id: string;
+  condition: string;
+  sample_type: string;
   treatment: string;
+  response: string;
   time_from_treatment_start: number;
   b_cell: number;
   cd8_t_cell: number;
@@ -21,7 +24,10 @@ export function getSamples(): SampleData[] {
     SELECT 
       samples.sample_id, 
       samples.subject_id, 
+      subjects.condition, 
+      samples.sample_type,
       subjects.treatment, 
+      subjects.response,
       samples.time_from_treatment_start, 
       samples.b_cell,
       samples.cd8_t_cell, 
@@ -31,7 +37,5 @@ export function getSamples(): SampleData[] {
     FROM samples
     JOIN subjects ON samples.subject_id = subjects.subject_id
   `);
-  
-  const data = stmt.all() as SampleData[];
-  return data;
+  return stmt.all() as SampleData[];
 }
