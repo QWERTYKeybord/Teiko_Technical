@@ -108,7 +108,7 @@ try:
     os.makedirs('public', exist_ok=True)
 
     plt.savefig('public/boxplot.png', dpi=300, bbox_inches='tight')
-    logging.info("Successfully saved boxplot image to public/seaborn_boxplot.png.")
+    logging.info("Successfully saved boxplot image to public/boxplot.png.")
     
     logging.info("Part 4: Data Subset Analysis")
 
