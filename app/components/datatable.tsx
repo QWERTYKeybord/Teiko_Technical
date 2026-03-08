@@ -57,6 +57,7 @@ export function DataTable<TData, TValue>({
   return (
     <div className="space-y-4 font-sans">
 
+      {/* Faceted filter */}
       <div className="flex items-center gap-4">
         <button 
           onClick={() => setIsFilterMenuOpen(!isFilterMenuOpen)}
@@ -105,6 +106,7 @@ export function DataTable<TData, TValue>({
         </div>
       )}
 
+      {/* Column toggler (to view specific columns) */}
       <div className="p-4 bg-white border border-gray-200 rounded-lg shadow-sm">
         <span className="text-sm font-semibold text-gray-700 mb-3 block">Toggle Columns:</span>
         <div className="flex flex-wrap gap-4">
@@ -124,6 +126,7 @@ export function DataTable<TData, TValue>({
           })}
         </div>
       </div>
+      {/* Sort function for columns */}
       <div className="border border-gray-200 rounded-lg shadow-sm overflow-x-auto bg-white">
         <table className="w-full text-sm text-left whitespace-nowrap">
           <thead className="bg-gray-100 text-gray-700 font-semibold border-b-2 border-gray-300">

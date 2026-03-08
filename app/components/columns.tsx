@@ -3,6 +3,7 @@
 import { ColumnDef, FilterFn } from "@tanstack/react-table";
 import { SampleData, PopulationSummary } from "../../lib/db";
 
+{/* filter for IDs */}
 export const idRangeFilter: FilterFn<any> = (row, columnId, value) => {
   const rowValue = row.getValue<string>(columnId) || "";
   const num = parseInt(rowValue.replace(/\D/g, ""), 10);

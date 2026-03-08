@@ -53,6 +53,7 @@ export function Filter({ column, table }: { column: Column<any, unknown>; table:
   return (
     <div className="mt-4 flex flex-col gap-4">
       
+      {/* Slider */}
       <div className="px-2">
         <ReactSlider
           className="w-full h-2 flex items-center"
@@ -76,7 +77,8 @@ export function Filter({ column, table }: { column: Column<any, unknown>; table:
           minDistance={0}
         />
       </div>
-
+      
+      {/* Numerical min/max */}
       <div className="flex items-center gap-2 text-sm">
         <div className="flex flex-col">
           <label className="text-xs text-gray-500 mb-1">Min</label>

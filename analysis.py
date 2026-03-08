@@ -6,7 +6,6 @@ import matplotlib.pyplot as plt
 import os
 import logging
 
-# 1. Initialize the logger to append to your existing file
 logging.basicConfig(
     filename='logger.log',
     level=logging.INFO,
