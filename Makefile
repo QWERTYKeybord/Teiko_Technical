@@ -4,7 +4,7 @@ setup:
 	@echo "Installing Python dependencies..."
 	pip install -r requirements.txt
 	@echo "Installing Next.js dependencies..."
-	npm install
+	npm install --legacy-peer-deps
 
 pipeline:
 	@echo "Step 1: Initializing database and loading raw data..."
