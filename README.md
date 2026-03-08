@@ -1,5 +1,3 @@
-# Teiko_Technical
-
 # Clinical Trial Data Dashboard
 
 ## How to Run the Code
@@ -28,6 +26,8 @@ make dashboard
 ```
 
 ## Database Schema & Scalability
+
+![ER Diagram](./readme_assets/ERDiagram.png)
 
 The database (cell_counts.db) is structured into three primary tables: projects, subjects, and samples.
 
